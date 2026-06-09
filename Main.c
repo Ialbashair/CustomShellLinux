@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,7 +43,7 @@ static int run_builtin(char *argv[], int argc, int *should_exit){
     return 1;
   }
 
-  retrun 0;
+  return  0;
 }
 
 static void run_external(char * argv[]) {
@@ -53,7 +54,7 @@ static void run_external(char * argv[]) {
   }
   if (pid == 0) {
     execvp(argv[0], argv);
-    fprint(stderr, "mysh: %s: %s\n", argv[0],strerror(errno));
+    fprintf(stderr, "mysh: %s: %s\n", argv[0],strerror(errno));
     _exit(127);
   }
   int status;
@@ -67,7 +68,7 @@ int main(void) {
 
   for (;;){
     printf("mysh> ");
-    fflsuh(stdout);
+    fflush(stdout);
 
     ssize_t n = getline(&line, &cap, stdin);
     if (n < 0) {
@@ -88,5 +89,5 @@ int main(void) {
   }
 
   free(line);
-  retrun 0;
+  return 0;
 }
